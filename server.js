@@ -38,4 +38,5 @@ sequelize.sync()
   })
   .catch(err => {
     console.error('❌ Error al sincronizar la DB:', err);
+    process.exit(1); // Termina el proceso con código de error
   });
