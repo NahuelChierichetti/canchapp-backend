@@ -25,15 +25,17 @@ app.get('/', (req, res) => {
 
 // --- Inicialización del Servidor ---
 const sequelize = require('./src/db/db')
+const models = require('./models')
 
 sequelize.sync()
   .then(() => {
-    console.log('Base de datos sincronizada correctamente')
+    console.log('✅ Base de datos sincronizada. Tablas creadas/actualizadas.');
 
+    // Inicia el servidor solo después de que la DB esté lista
     app.listen(port, () => {
       console.log(`🚀 Servidor Express escuchando en http://localhost:${port}`);
-    })
+    });
   })
-  .catch((error) => {
-    console.error('Error al sincronizar la base de datos:', error)
-  })
+  .catch(err => {
+    console.error('❌ Error al sincronizar la DB:', err);
+  });
